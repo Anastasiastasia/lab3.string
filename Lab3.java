@@ -14,7 +14,7 @@ class DateValidatorTest {
         }
         writer.write(dateToValidate);
         SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
-        sdf.setLenient(false); // Устанавливает мягкий (lenient) или жёсткий (non-lenient)/  false //синтаксический анализ
+        sdf.setLenient(false); 
   
     
          sdf.parse(dateToValidate);
@@ -45,13 +45,11 @@ BufferedWriter writer = new BufferedWriter(fileWriter)) {
                 if (isBinaryNumber(token)) {
                     binaryNumbers.add(token);
                     int decimalNumber = Integer.parseInt(token, 2);
-                   // int randomNum = rand.nextInt(100);
                     writer.write("Двоичное число " + token + " преобразовано в десятичное: " + decimalNumber + "\n");
                 } else if (isTimeLexeme(token)) {
                         timeLexemes.add(token);
                 }
             } catch (NumberFormatException e) {
-                // Ignore non-numeric tokens
             }
         }
         DateValidatorTest dv=new DateValidatorTest();
@@ -82,20 +80,19 @@ BufferedWriter writer = new BufferedWriter(fileWriter)) {
         asString = asString.replace(".", ""); 
         asString = asString.replace(",", "");       
         asString = asString.replace("  ", " ");          
-        String[] words = asString.split(" ");                         // методом split() разбиваем строку asString           
+        String[] words = asString.split(" ");                               
         for(String word : words) {
             writer.write("Длина подстроки: " + word + " = " + word.length() +"\n"); }  
-        // Определение подстроки минимальной длины
         int minLength = asString.length();                                 
-        int buffermin = 0;                                                  // переменной buffermin присваиваем номер первого элемента строкового массива
-        for(int i = 0; i < words.length - 1; i++) {                         // сравниваем длины всех подстрок
-            String temp = words[i];                                         // переменной temp присваиваем значение i-той подстроки
-            if (temp.length() < minLength && isNumber(temp) ) {             // если длина i-той подстроки меньше записанной в minLength и подстрока число-вызываем функцию isNumber
-                minLength = temp.length();                                  // её записываем в minLength
-                buffermin = i;                                              // переменной buffermin присваиваем номер i-той подстроки минимальной длины
+        int buffermin = 0;                                                 
+        for(int i = 0; i < words.length - 1; i++) {                        
+            String temp = words[i];                                         
+            if (temp.length() < minLength && isNumber(temp) ) {            
+                minLength = temp.length();                                
+                buffermin = i;                                             
             }
         }
-        asString = subtractSubstring( asString, words[buffermin]); // вызываем функцию subtractSubstring удаления подстроки buffermin из строки lexemes
+        asString = subtractSubstring( asString, words[buffermin]); 
         writer.write("\nСтрока с удаленной подстрокой минимальной длины: \n" + asString+ "\n");
         writ.close();
     } catch (IOException e) {
@@ -118,19 +115,14 @@ if(str.matches(regex))
 }
 return false;
 }
-// ********** Функция удаления подстроки из строки **********
     private static String subtractSubstring(String input, String pattern) {
-        Pattern p = Pattern.compile(pattern);                                   // вызваем статический метод compile и передаем в качестве первого аргумента строку
-        Matcher m = p.matcher(input);                                           // вызваем метод matches(), коорый принимает регулярное выражение и возвращает true, если строка соответствует этому выражению
+        Pattern p = Pattern.compile(pattern);                                   
+        Matcher m = p.matcher(input);                                         
         return m.replaceAll("");   
                                      }                                 
-
-//********** Функция для проверки того, является ли строка числом или нет **********
-    public static boolean isNumber(String str) {   
-       //str.toCharArray(); 
-       //char c=str.charAt(0);                           
+    public static boolean isNumber(String str) {                           
        try {
-            Integer.parseInt(str);                                              // вызваем метод parseInt - преобразование строки в число, является ли она целым числом
+            Integer.parseInt(str);                                           
         } 
        catch (Exception e) {
             return false;
